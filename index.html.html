@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diamond Nails - Book Your Appointment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: white;
+            max-width: 600px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 60px;
+            margin-bottom: 10px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        .form-content {
+            padding: 40px 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        label .required {
+            color: #e74c3c;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        input:invalid:not(:placeholder-shown), 
+        select:invalid:not(:placeholder-shown),
+        textarea:invalid:not(:placeholder-shown) {
+            border-color: #e74c3c;
+        }
+
+        input:valid:not(:placeholder-shown),
+        select:valid:not(:placeholder-shown) {
+            border-color: #27ae60;
+        }
+
+        select {
+            cursor: pointer;
+            background-color: white;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .helper-text {
+            color: #888;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .powered-by {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9ff;
+            color: #888;
+            font-size: 13px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .powered-by strong {
+            color: #667eea;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6cb;
+            display: none;
+        }
+
+        .error-message-box {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+            display: none;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 640px) {
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 26px;
+            }
+
+            .form-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">💅</div>
+            <h1>Diamond Nails</h1>
+            <p>Book Your Perfect Appointment</p>
+        </div>
+
+        <div class="form-content">
+            <div class="success-message" id="successMessage">
+                ✅ <strong>Booking Confirmed!</strong> Check your email for details.
+            </div>
+            <div class="error-message-box" id="errorMessage">
+                ❌ <strong>Oops!</strong> <span id="errorText">Something went wrong. Please try again.</span>
+            </div>
+
+            <form id="bookingForm" novalidate>
+                <div class="form-group">
+                    <label for="clientName">👤 Your Full Name <span class="required">*</span></label>
+                    <input 
+                        type="text" 
+                        id="clientName" 
+                        name="clientName" 
+                        required 
+                        minlength="2"
+                        maxlength="100"
+                        placeholder="Enter your full name"
+                        pattern="[A-Za-z\s]{2,100}">
+                    <div class="error-message" id="nameError">Please enter your full name (letters only, 2-100 characters)</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="clientEmail">📧 Email Address <span class="required">*</span></label>
+                    <input 
+                        type="email" 
+                        id="clientEmail" 
+                        name="clientEmail" 
+                        required 
+                        placeholder="your.email@example.com"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                    <div class="error-message" id="emailError">Please enter a valid email address</div>
+                    <div class="helper-text">We'll send your confirmation here</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="clientPhone">📱 Phone Number <span class="required">*</span></label>
+                    <input 
+                        type="tel" 
+                        id="clientPhone" 
+                        name="clientPhone" 
+                        required 
+                        placeholder="(555) 123-4567"
+                        pattern="[\(\)\d\s\-\+]{10,20}">
+                    <div class="error-message" id="phoneError">Please enter a valid phone number (10+ digits)</div>
+                    <div class="helper-text">In case we need to contact you</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="serviceType">💅 Service Type <span class="required">*</span></label>
+                    <select id="serviceType" name="serviceType" required>
+                        <option value="">Select a service...</option>
+                        <option value="Classic Manicure - $35">Classic Manicure - $35</option>
+                        <option value="Gel Manicure - $50">Gel Manicure - $50</option>
+                        <option value="Acrylic Full Set - $65">Acrylic Full Set - $65</option>
+                        <option value="Pedicure - $45">Pedicure - $45</option>
+                        <option value="Spa Pedicure - $60">Spa Pedicure - $60</option>
+                        <option value="Nail Art - $15+">Nail Art - $15+</option>
+                        <option value="Manicure & Pedicure Combo - $75">Manicure & Pedicure Combo - $75</option>
+                    </select>
+                    <div class="error-message" id="serviceError">Please select a service</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="appointmentDate">📅 Preferred Date <span class="required">*</span></label>
+                    <input 
+                        type="date" 
+                        id="appointmentDate" 
+                        name="appointmentDate" 
+                        required>
+                    <div class="error-message" id="dateError">Please select a valid date (today or later)</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="appointmentTime">🕐 Preferred Time <span class="required">*</span></label>
+                    <input 
+                        type="time" 
+                        id="appointmentTime" 
+                        name="appointmentTime" 
+                        required
+                        min="09:00"
+                        max="18:00">
+                    <div class="error-message" id="timeError">Please select a time between 9:00 AM and 6:00 PM</div>
+                    <div class="helper-text">Business hours: 9:00 AM - 6:00 PM</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">📝 Special Requests (Optional)</label>
+                    <textarea 
+                        id="notes" 
+                        name="notes" 
+                        maxlength="500"
+                        placeholder="Any color preferences, nail length, or special requests..."></textarea>
+                    <div class="helper-text">Maximum 500 characters</div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Book My Appointment ✨
+                </button>
+            </form>
+        </div>
+
+        <div class="powered-by">
+            Powered by <strong>ElevAI</strong> 🤖<br>
+            Smart Automation for Modern Businesses
+        </div>
+    </div>
+
+    <script>
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('appointmentDate').setAttribute('min', today);
+
+        const form = document.getElementById('bookingForm');
+        const inputs = form.querySelectorAll('input[required], select[required]');
+
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                validateField(this);
+            });
+
+            input.addEventListener('input', function() {
+                if (this.classList.contains('was-validated')) {
+                    validateField(this);
+                }
+            });
+        });
+
+        function validateField(field) {
+            const errorElement = document.getElementById(field.id + 'Error');
+            
+            if (!field.checkValidity()) {
+                if (errorElement) {
+                    errorElement.style.display = 'block';
+                }
+                field.classList.add('was-validated');
+                return false;
+            } else {
+                if (errorElement) {
+                    errorElement.style.display = 'none';
+                }
+                return true;
+            }
+        }
+
+        document.getElementById('clientPhone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 10) {
+                value = value.substring(0, 10);
+                e.target.value = `(${value.substring(0,3)}) ${value.substring(3,6)}-${value.substring(6)}`;
+            }
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            
+            let isValid = true;
+            inputs.forEach(input => {
+                if (!validateField(input)) {
+                    isValid = false;
+                }
+                input.classList.add('was-validated');
+            });
+
+            if (!isValid) {
+                errorText.textContent = 'Please fix the errors above before submitting.';
+                errorMessage.style.display = 'block';
+                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                return;
+            }
+
+            const appointmentDate = new Date(document.getElementById('appointmentDate').value);
+            const todayDate = new Date();
+            todayDate.setHours(0, 0, 0, 0);
+            
+            if (appointmentDate < todayDate) {
+                errorText.textContent = 'Appointment date cannot be in the past.';
+                errorMessage.style.display = 'block';
+                document.getElementById('dateError').style.display = 'block';
+                return;
+            }
+
+            const appointmentTime = document.getElementById('appointmentTime').value;
+            const [hours] = appointmentTime.split(':').map(Number);
+            
+            if (hours < 9 || hours >= 18) {
+                errorText.textContent = 'Please select a time during business hours (9:00 AM - 6:00 PM).';
+                errorMessage.style.display = 'block';
+                document.getElementById('timeError').style.display = 'block';
+                return;
+            }
+            
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loading"></span> Booking...';
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            try {
+                const webhookURL = 'https://elev0ai.app.n8n.cloud/webhook/diamond-nails-booking';
+                
+                const response = await fetch(webhookURL, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    successMessage.style.display = 'block';
+                    form.reset();
+                    
+                    inputs.forEach(input => {
+                        input.classList.remove('was-validated');
+                    });
+                    
+                    successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    
+                    setTimeout(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = 'Book My Appointment ✨';
+                    }, 2000);
+                } else {
+                    throw new Error('Booking failed');
+                }
+            } catch (error) {
+                errorText.textContent = 'Unable to complete booking. Please try again or call us directly.';
+                errorMessage.style.display = 'block';
+                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Book My Appointment ✨';
+                
+                console.error('Booking error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
