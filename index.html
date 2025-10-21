@@ -1,703 +1,337 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diamond Nails - Book Your Appointment</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Diamond Nails • Book Your Appointment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1020;         /* deep navy */
+      --bg-soft:#0f1530;
+      --card:#0f1224;
+      --ink:#e6e8ef;        /* near-white text */
+      --muted:#a7b0c9;      /* muted text */
+      --primary:#ff4d6d;    /* rose */
+      --primary-2:#ff8fa3;  /* light rose */
+      --accent:#87f0ff;     /* aqua accent */
+      --ok:#10b981;         /* success */
+      --warn:#f59e0b;       /* warning */
+      --err:#ef4444;        /* error */
+      --glass: rgba(255,255,255,.06);
+      --glass-stroke: rgba(255,255,255,.12);
+      --radius: 22px;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--ink);
+      font-family:"Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 700px at -15% -10%, rgba(255,77,109,.20), transparent 60%),
+        radial-gradient(900px 600px at 115% -10%, rgba(135,240,255,.20), transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg-soft));
+      overflow-x:hidden;
+    }
+    /* FLOATING ORBS */
+    .orb{position:absolute; filter:blur(40px); opacity:.45; mix-blend:screen; animation:float 14s ease-in-out infinite}
+    .o1{width:280px;height:280px;background:#ff7a98; left:-60px; top:-40px}
+    .o2{width:340px;height:340px;background:#55e9ff; right:-80px; top:-60px; animation-delay:2s}
+    .o3{width:220px;height:220px;background:#b07cff; left:50%; bottom:-80px; transform:translateX(-50%); animation-delay:4s}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(12px)}}
 
-        body {
-            font-family: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            font-weight: 600;
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #8b5cf6 100%);
-            min-height: 100vh;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-        }
+    .wrap{max-width:880px; margin:0 auto; padding:28px}
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.35) 2px, transparent 2px);
-            background-size: 50px 50px;
-            animation: moveBackground 20s linear infinite;
-            pointer-events: none;
-        }
+    .card{
+      position:relative; background:var(--glass); border:1px solid var(--glass-stroke);
+      border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; backdrop-filter: blur(16px);
+    }
 
-        @keyframes moveBackground {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
+    .hero{position:relative; padding:34px 28px 18px;}
+    .brand{display:flex; align-items:center; gap:14px}
+    .logo{width:48px;height:48px;border-radius:14px; display:grid;place-items:center; background:linear-gradient(135deg, var(--primary), var(--primary-2)); box-shadow:0 8px 28px rgba(255,77,109,.45)}
+    .brand h1{margin:0; font-family:"Playfair Display", serif; font-weight:700; letter-spacing:.4px; font-size:28px}
+    .tag{margin:6px 0 0; color:var(--muted)}
 
-        .container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            max-width: 550px;
-            margin: 0 auto;
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 100px rgba(59, 130, 246, 0.2);
-            overflow: hidden;
-            animation: fadeInUp 0.6s ease-out;
-            position: relative;
-        }
+    .ribbon{position:absolute; right:18px; top:18px; font-size:12px; padding:6px 10px; border-radius:999px; color:#0b1220; background:linear-gradient(90deg,#ffe4ec,#c1f7ff)}
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    .form{padding:20px 24px 28px}
+    .section-title{margin:4px 0 14px; font-weight:800; color:#ffffff; letter-spacing:.3px}
 
-        .header {
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            color: white;
-            padding: 40px 30px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
+    label{display:block; font-weight:700; margin:0 0 8px; color:#f6f7fb; font-size:14px}
+    .req{color:var(--primary-2)}
 
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 20%, transparent 40%);
-            animation: pulse 3s ease-in-out infinite;
-        }
+    input,select,textarea{
+      width:100%; border:1.5px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03);
+      color:var(--ink); border-radius:16px; padding:14px 14px; font-size:15px; font-weight:600; transition:.2s;
+    }
+    input::placeholder, textarea::placeholder{color:#9aa3be}
+    input:hover,select:hover,textarea:hover{border-color:rgba(255,255,255,.22)}
+    input:focus,select:focus,textarea:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 6px rgba(135,240,255,.14), 0 10px 28px rgba(0,0,0,.25); transform:translateY(-1px)}
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-        }
+    .two{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    @media (max-width:640px){.two{grid-template-columns:1fr}}
 
-        .logo {
-            font-size: 56px;
-            margin-bottom: 12px;
-            animation: floatLogo 3s ease-in-out infinite;
-            position: relative;
-            z-index: 1;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
-        }
+    .row{margin-bottom:16px; animation:fadeUp .4s ease both}
+    .row:nth-child(1){animation-delay:.02s}
+    .row:nth-child(2){animation-delay:.05s}
+    .row:nth-child(3){animation-delay:.08s}
+    .row:nth-child(4){animation-delay:.11s}
+    .row:nth-child(5){animation-delay:.14s}
+    .row:nth-child(6){animation-delay:.17s}
 
-        @keyframes floatLogo {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
+    @keyframes fadeUp{from{opacity:0; transform:translateY(6px)}to{opacity:1; transform:translateY(0)}}
 
-        .header h1 {
-            font-size: 32px;
-            margin-bottom: 8px;
-            font-weight: 800;
-            position: relative;
-            z-index: 1;
-            letter-spacing: -0.5px;
-        }
+    .hint{font-size:12px; color:var(--muted); margin-top:6px}
+    .err{display:none; color:var(--primary-2); font-weight:800; font-size:12px; margin-top:6px}
 
-        .header p {
-            font-size: 16px;
-            opacity: 0.95;
-            position: relative;
-            z-index: 1;
-            font-weight: 500;
-        }
+    .actions{margin-top:10px}
+    .btn{
+      width:100%; border:0; border-radius:16px; padding:15px; font-weight:900; letter-spacing:.3px; cursor:pointer;
+      color:#0b1220; background:linear-gradient(135deg,#ffe2ea,#b7f3ff); box-shadow:0 16px 40px rgba(255,77,109,.25), 0 6px 16px rgba(135,240,255,.2);
+      transition:transform .18s ease, box-shadow .18s ease, filter .2s ease;
+    }
+    .btn:hover{transform:translateY(-2px); box-shadow:0 24px 50px rgba(255,77,109,.32), 0 8px 18px rgba(135,240,255,.25)}
+    .btn[disabled]{opacity:.7; cursor:not-allowed; transform:none; filter:grayscale(.2)}
 
-        .form-content {
-            padding: 35px 30px 40px;
-        }
+    .footer{padding:14px; text-align:center; color:var(--muted); border-top:1px solid rgba(255,255,255,.08)}
+    .footer strong{color:#fff}
 
-        .form-group {
-            margin-bottom: 24px;
-            animation: fadeIn 0.5s ease-out backwards;
-        }
+    .toast{display:none; padding:14px; border-radius:14px; font-weight:800; margin-bottom:16px}
+    .toast.ok{background:linear-gradient(135deg,rgba(16,185,129,.2),rgba(16,185,129,.12)); border:1px solid rgba(16,185,129,.5); color:#bfffe6}
+    .toast.err{background:linear-gradient(135deg,rgba(239,68,68,.18),rgba(239,68,68,.1)); border:1px solid rgba(239,68,68,.45); color:#ffd5d5}
 
-        .form-group:nth-child(1) { animation-delay: 0.1s; }
-        .form-group:nth-child(2) { animation-delay: 0.15s; }
-        .form-group:nth-child(3) { animation-delay: 0.2s; }
-        .form-group:nth-child(4) { animation-delay: 0.25s; }
-        .form-group:nth-child(5) { animation-delay: 0.3s; }
-        .form-group:nth-child(6) { animation-delay: 0.35s; }
-        .form-group:nth-child(7) { animation-delay: 0.4s; }
+    /* subtle shake on invalid submit */
+    .shake{animation:shake .35s ease}
+    @keyframes shake{10%,90%{transform:translateX(-1px)}20%,80%{transform:translateX(2px)}30%,50%,70%{transform:translateX(-4px)}40%,60%{transform:translateX(4px)}}
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        label {
-            display: block;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 10px;
-            font-size: 14px;
-            letter-spacing: 0.3px;
-        }
-
-        .required {
-            color: #ef4444;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 15px;
-            font-family: inherit;
-            font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background: white;
-            color: #1e293b;
-        }
-
-        input[type="date"],
-        input[type="time"] {
-            position: relative;
-            padding: 14px 16px;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-        }
-
-        input[type="date"]::-webkit-calendar-picker-indicator,
-        input[type="time"]::-webkit-calendar-picker-indicator {
-            cursor: pointer;
-            opacity: 0.6;
-            padding: 4px;
-            transition: opacity 0.2s;
-        }
-
-        input[type="date"]:hover::-webkit-calendar-picker-indicator,
-        input[type="time"]:hover::-webkit-calendar-picker-indicator {
-            opacity: 1;
-        }
-
-        input:hover, select:hover, textarea:hover {
-            border-color: #cbd5e1;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
-            transform: translateY(-2px);
-        }
-
-        input.error, select.error {
-            border-color: #ef4444;
-            animation: shake 0.4s;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        input.valid, select.valid {
-            border-color: #10b981;
-        }
-
-        select {
-            cursor: pointer;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233b82f6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 20px;
-            padding-right: 40px;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-            font-family: inherit;
-        }
-
-        .helper-text {
-            color: #64748b;
-            font-size: 12px;
-            margin-top: 6px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-weight: 500;
-        }
-
-        .error-message {
-            color: #ef4444;
-            font-size: 12px;
-            margin-top: 6px;
-            display: none;
-            font-weight: 700;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 17px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-top: 10px;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .submit-btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .submit-btn:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.5);
-        }
-
-        .submit-btn:active {
-            transform: translateY(-1px);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .submit-btn span {
-            position: relative;
-            z-index: 1;
-        }
-
-        .powered-by {
-            text-align: center;
-            padding: 24px;
-            background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
-            color: #64748b;
-            font-size: 13px;
-            border-top: 1px solid #e2e8f0;
-            font-weight: 600;
-        }
-
-        .powered-by strong {
-            color: #3b82f6;
-            font-weight: 800;
-        }
-
-        .success-message {
-            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-            color: #065f46;
-            padding: 16px 18px;
-            border-radius: 12px;
-            margin-bottom: 24px;
-            border: 2px solid #6ee7b7;
-            display: none;
-            font-size: 14px;
-            font-weight: 700;
-            animation: slideDown 0.4s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .error-message-box {
-            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-            color: #991b1b;
-            padding: 16px 18px;
-            border-radius: 12px;
-            margin-bottom: 24px;
-            border: 2px solid #fca5a5;
-            display: none;
-            font-size: 14px;
-            font-weight: 700;
-            animation: slideDown 0.4s ease-out;
-        }
-
-        .loading {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 0.6s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .input-icon {
-            display: inline-block;
-            margin-right: 6px;
-            font-size: 16px;
-        }
-
-        @media (max-width: 600px) {
-            body {
-                padding: 15px;
-            }
-
-            .container {
-                border-radius: 20px;
-            }
-
-            .header {
-                padding: 35px 25px;
-            }
-
-            .header h1 {
-                font-size: 28px;
-            }
-
-            .logo {
-                font-size: 48px;
-            }
-
-            .form-content {
-                padding: 28px 20px 32px;
-            }
-
-            .form-group {
-                margin-bottom: 20px;
-            }
-
-            input, select, textarea {
-                font-size: 16px;
-                padding: 13px 14px;
-            }
-
-            .submit-btn {
-                padding: 15px;
-                font-size: 16px;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .header h1 {
-                font-size: 24px;
-            }
-
-            .form-content {
-                padding: 24px 18px 28px;
-            }
-        }
-    </style>
+    /* success modal */
+    dialog{border:0; border-radius:18px; padding:0; background:#12142a; color:var(--ink); width:min(520px,92vw); box-shadow:var(--shadow)}
+    .modal{padding:22px}
+    .modal h3{margin:0 0 8px; font-family:"Playfair Display", serif; font-size:26px}
+    .modal p{margin:4px 0 0; color:var(--muted)}
+    .modal .okbtn{margin-top:16px; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.06); color:#fff; font-weight:800; cursor:pointer}
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="logo">💅</div>
-            <h1>Diamond Nails</h1>
-            <p>Book Your Perfect Appointment</p>
-        </div>
+  <!-- floating ambience -->
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="orb o3"></div>
 
-        <div class="form-content">
-            <div class="success-message" id="successMessage">
-                ✅ <strong>Booking Confirmed!</strong> Check your email for details.
+  <div class="wrap">
+    <div class="card" role="region" aria-labelledby="formTitle">
+      <div class="hero">
+        <span class="ribbon">Instant email confirmation</span>
+        <div class="brand">
+          <div class="logo" aria-hidden="true">💅</div>
+          <div>
+            <h1 id="formTitle">Diamond Nails</h1>
+            <div class="tag">Book in 60 seconds — modern, simple, professional</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form" id="formRoot">
+        <div class="toast ok" id="okToast" role="status" aria-live="polite">✔ Booking sent — check your inbox for confirmation.</div>
+        <div class="toast err" id="errToast" role="alert">✖ Please fix the highlighted fields.</div>
+
+        <div class="section-title">Your details</div>
+        <form id="bookingForm" novalidate>
+          <!-- honeypot -->
+          <input type="text" name="company" id="company" autocomplete="off" tabindex="-1" style="position:absolute;left:-9999px;opacity:0" aria-hidden="true" />
+
+          <div class="row">
+            <label for="clientName">Full name <span class="req">*</span></label>
+            <input id="clientName" name="clientName" type="text" placeholder="e.g. Sarah Johnson" minlength="2" maxlength="100" required />
+            <div class="err" id="clientName_err">Enter your name (min 2 characters).</div>
+          </div>
+
+          <div class="two">
+            <div class="row">
+              <label for="clientEmail">Email <span class="req">*</span></label>
+              <input id="clientEmail" name="clientEmail" type="email" placeholder="your@email.com" required />
+              <div class="err" id="clientEmail_err">Enter a valid email.</div>
             </div>
-            <div class="error-message-box" id="errorMessage">
-                ❌ <strong>Error:</strong> <span id="errorText">Something went wrong. Please try again.</span>
+            <div class="row">
+              <label for="clientPhone">Phone (UK) <span class="req">*</span></label>
+              <input id="clientPhone" name="clientPhone" type="tel" placeholder="07XXX XXXXXX" pattern="^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$" required />
+              <div class="hint">Format: 07xxx xxxxxx</div>
+              <div class="err" id="clientPhone_err">Enter a valid UK mobile number.</div>
             </div>
+          </div>
 
-            <form id="bookingForm" novalidate>
-                <div class="form-group">
-                    <label for="clientName"><span class="input-icon">👤</span>Your Full Name <span class="required">*</span></label>
-                    <input 
-                        type="text" 
-                        id="clientName" 
-                        name="clientName" 
-                        required 
-                        minlength="2"
-                        maxlength="100"
-                        placeholder="e.g. Sarah Johnson"
-                        pattern="[A-Za-z\s]{2,100}">
-                    <div class="error-message" id="nameError">Please enter your full name (letters only)</div>
-                </div>
+          <div class="section-title">Appointment</div>
+          <div class="row">
+            <label for="serviceType">Service <span class="req">*</span></label>
+            <select id="serviceType" name="serviceType" required>
+              <option value="">Select a service…</option>
+              <option>Classic Manicure - £30</option>
+              <option>Gel Manicure - £40</option>
+              <option>Acrylic Full Set - £50</option>
+              <option>Pedicure - £35</option>
+              <option>Spa Pedicure - £45</option>
+              <option>Nail Art - £15+</option>
+              <option>Manicure & Pedicure Combo - £60</option>
+            </select>
+            <div class="err" id="serviceType_err">Choose a service.</div>
+          </div>
 
-                <div class="form-group">
-                    <label for="clientEmail"><span class="input-icon">📧</span>Email Address <span class="required">*</span></label>
-                    <input 
-                        type="email" 
-                        id="clientEmail" 
-                        name="clientEmail" 
-                        required 
-                        placeholder="your.email@example.com">
-                    <div class="error-message" id="emailError">Please enter a valid email address</div>
-                    <div class="helper-text">📨 We'll send your confirmation here</div>
-                </div>
+          <div class="two">
+            <div class="row">
+              <label for="appointmentDate">Preferred date <span class="req">*</span></label>
+              <input id="appointmentDate" name="appointmentDate" type="date" required />
+              <div class="err" id="appointmentDate_err">Pick today or a future date.</div>
+            </div>
+            <div class="row">
+              <label for="appointmentTime">Preferred time <span class="req">*</span></label>
+              <input id="appointmentTime" name="appointmentTime" type="time" min="09:00" max="18:00" required />
+              <div class="hint">Open 09:00–18:00</div>
+              <div class="err" id="appointmentTime_err">Pick a time within business hours.</div>
+            </div>
+          </div>
 
-                <div class="form-group">
-                    <label for="clientPhone"><span class="input-icon">📱</span>Phone Number <span class="required">*</span></label>
-                    <input 
-                        type="tel" 
-                        id="clientPhone" 
-                        name="clientPhone" 
-                        required 
-                        placeholder="07XXX XXXXXX"
-                        pattern="^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$">
-                    <div class="error-message" id="phoneError">Please enter a valid UK mobile number</div>
-                    <div class="helper-text">🇬🇧 UK mobile format: 07XXX XXXXXX</div>
-                </div>
+          <div class="row">
+            <label for="notes">Special requests (optional)</label>
+            <textarea id="notes" name="notes" rows="4" maxlength="500" placeholder="Any colour preferences, length, allergies…"></textarea>
+            <div class="hint">Max 500 characters</div>
+          </div>
 
-                <div class="form-group">
-                    <label for="serviceType"><span class="input-icon">💅</span>Service Type <span class="required">*</span></label>
-                    <select id="serviceType" name="serviceType" required>
-                        <option value="">Select a service...</option>
-                        <option value="Classic Manicure - £30">Classic Manicure - £30</option>
-                        <option value="Gel Manicure - £40">Gel Manicure - £40</option>
-                        <option value="Acrylic Full Set - £50">Acrylic Full Set - £50</option>
-                        <option value="Pedicure - £35">Pedicure - £35</option>
-                        <option value="Spa Pedicure - £45">Spa Pedicure - £45</option>
-                        <option value="Nail Art - £15+">Nail Art - £15+</option>
-                        <option value="Manicure & Pedicure Combo - £60">Manicure & Pedicure Combo - £60</option>
-                    </select>
-                    <div class="error-message" id="serviceError">Please select a service</div>
-                </div>
+          <div class="actions">
+            <button class="btn" id="submitBtn" type="submit">
+              <span id="btnText">Book my appointment ✨</span>
+            </button>
+          </div>
 
-                <div class="form-group">
-                    <label for="appointmentDate"><span class="input-icon">📅</span>Preferred Date <span class="required">*</span></label>
-                    <input 
-                        type="date" 
-                        id="appointmentDate" 
-                        name="appointmentDate" 
-                        required>
-                    <div class="error-message" id="dateError">Please select a valid date</div>
-                </div>
+          <div class="hint" style="margin-top:12px">No payment collected here. You’ll get an email confirmation and a free cancellation link.</div>
+        </form>
+      </div>
 
-                <div class="form-group">
-                    <label for="appointmentTime"><span class="input-icon">🕐</span>Preferred Time <span class="required">*</span></label>
-                    <input 
-                        type="time" 
-                        id="appointmentTime" 
-                        name="appointmentTime" 
-                        required
-                        min="09:00"
-                        max="18:00">
-                    <div class="error-message" id="timeError">Please select a time between 9:00 AM and 6:00 PM</div>
-                    <div class="helper-text">⏰ Business hours: 9:00 AM - 6:00 PM</div>
-                </div>
-
-                <div class="form-group">
-                    <label for="notes"><span class="input-icon">📝</span>Special Requests (Optional)</label>
-                    <textarea 
-                        id="notes" 
-                        name="notes" 
-                        maxlength="500"
-                        placeholder="Any colour preferences, nail length, or special requests..."></textarea>
-                    <div class="helper-text">💬 Maximum 500 characters</div>
-                </div>
-
-                <button type="submit" class="submit-btn" id="submitBtn">
-                    <span>Book My Appointment ✨</span>
-                </button>
-            </form>
-        </div>
-
-        <div class="powered-by">
-            Powered by <strong>ElevAI</strong> 🤖<br>
-            Smart Automation for Modern Businesses
-        </div>
+      <div class="footer">Powered by <strong>ElevAI</strong> • Smart Automation for Local Businesses</div>
     </div>
+  </div>
 
-    <script>
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('appointmentDate').setAttribute('min', today);
+  <dialog id="successModal">
+    <div class="modal">
+      <h3>Booking sent 🎉</h3>
+      <p>We’ve emailed your confirmation. See you soon!</p>
+      <button class="okbtn" onclick="document.getElementById('successModal').close()">Close</button>
+    </div>
+  </dialog>
 
-        const form = document.getElementById('bookingForm');
-        const inputs = form.querySelectorAll('input[required], select[required]');
+  <script>
+    // === CONFIG ===
+    const WEBHOOK_URL = "https://elev0ai.app.n8n.cloud/webhook/diamond-nails-booking"; // exact production path
+    const OPEN_HOUR = 9;   // 09:00
+    const CLOSE_HOUR = 18; // 18:00
 
-        inputs.forEach(input => {
-            input.addEventListener('blur', function() {
-                validateField(this);
-            });
+    // Min date = today in local tz
+    (function(){
+      const d = new Date();
+      d.setHours(0,0,0,0);
+      const isoLocal = new Date(d.getTime() - d.getTimezoneOffset()*60000).toISOString().split('T')[0];
+      document.getElementById('appointmentDate').setAttribute('min', isoLocal);
+    })();
 
-            input.addEventListener('input', function() {
-                if (this.classList.contains('was-validated')) {
-                    validateField(this);
-                }
-            });
-        });
+    const form = document.getElementById('bookingForm');
+    const okToast = document.getElementById('okToast');
+    const errToast = document.getElementById('errToast');
+    const successModal = document.getElementById('successModal');
 
-        function validateField(field) {
-            const errorElement = document.getElementById(field.id + 'Error');
-            
-            field.classList.remove('error', 'valid');
-            
-            if (!field.checkValidity()) {
-                field.classList.add('error');
-                if (errorElement) {
-                    errorElement.style.display = 'block';
-                }
-                field.classList.add('was-validated');
-                return false;
-            } else {
-                field.classList.add('valid');
-                if (errorElement) {
-                    errorElement.style.display = 'none';
-                }
-                return true;
-            }
-        }
+    const inputs = ["clientName","clientEmail","clientPhone","serviceType","appointmentDate","appointmentTime"];
 
-        document.getElementById('clientPhone').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            
-            if (value.startsWith('44')) {
-                value = value.substring(2);
-            }
-            
-            if (value.startsWith('0')) {
-                if (value.length > 11) {
-                    value = value.substring(0, 11);
-                }
-                if (value.length >= 5) {
-                    e.target.value = value.substring(0, 5) + ' ' + value.substring(5, 8) + (value.length > 8 ? ' ' + value.substring(8) : '');
-                }
-            }
-        });
+    function clearErrors(){
+      errToast.style.display='none';
+      inputs.forEach(id=>{
+        const el = document.getElementById(id);
+        el.classList.remove('shake');
+        el.removeAttribute('aria-invalid');
+        const e = document.getElementById(id+"_err");
+        if(e) e.style.display='none';
+      });
+    }
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const submitBtn = document.getElementById('submitBtn');
-            const successMessage = document.getElementById('successMessage');
-            const errorMessage = document.getElementById('errorMessage');
-            const errorText = document.getElementById('errorText');
-            
-            let isValid = true;
-            inputs.forEach(input => {
-                if (!validateField(input)) {
-                    isValid = false;
-                }
-                input.classList.add('was-validated');
-            });
+    function invalidate(id, msg){
+      const el = document.getElementById(id);
+      const e = document.getElementById(id+"_err");
+      if(e && msg) e.textContent = msg;
+      if(e) e.style.display = 'block';
+      el.setAttribute('aria-invalid','true');
+      el.classList.add('shake');
+    }
 
-            if (!isValid) {
-                errorText.textContent = 'Please fix the errors above before submitting.';
-                errorMessage.style.display = 'block';
-                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                return;
-            }
+    function validate(){
+      clearErrors();
+      let ok=true;
+      const name = document.getElementById('clientName').value.trim();
+      const email = document.getElementById('clientEmail').value.trim();
+      const phone = document.getElementById('clientPhone').value.trim();
+      const svc = document.getElementById('serviceType').value;
+      const date = document.getElementById('appointmentDate').value;
+      const time = document.getElementById('appointmentTime').value;
 
-            const appointmentDate = new Date(document.getElementById('appointmentDate').value);
-            const todayDate = new Date();
-            todayDate.setHours(0, 0, 0, 0);
-            
-            if (appointmentDate < todayDate) {
-                errorText.textContent = 'Appointment date cannot be in the past.';
-                errorMessage.style.display = 'block';
-                document.getElementById('dateError').style.display = 'block';
-                return;
-            }
+      if(name.length < 2){ ok=false; invalidate('clientName'); }
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ ok=false; invalidate('clientEmail'); }
+      if(!/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/.test(phone)){ ok=false; invalidate('clientPhone'); }
+      if(!svc){ ok=false; invalidate('serviceType'); }
+      if(!date){ ok=false; invalidate('appointmentDate'); }
+      if(!time){ ok=false; invalidate('appointmentTime'); }
 
-            const appointmentTime = document.getElementById('appointmentTime').value;
-            const [hours] = appointmentTime.split(':').map(Number);
-            
-            if (hours < 9 || hours >= 18) {
-                errorText.textContent = 'Please select a time during business hours (9:00 AM - 6:00 PM).';
-                errorMessage.style.display = 'block';
-                document.getElementById('timeError').style.display = 'block';
-                return;
-            }
-            
-            successMessage.style.display = 'none';
-            errorMessage.style.display = 'none';
-            
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="loading"></span> <span>Booking...</span>';
-            
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData);
-            
-            try {
-                const webhookURL = 'https://elev0ai.app.n8n.cloud/webhook/diamond-nails-booking';
-                
-                const response = await fetch(webhookURL, {
-                    method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                });
-                
-                if (response.ok) {
-                    successMessage.style.display = 'block';
-                    form.reset();
-                    
-                    inputs.forEach(input => {
-                        input.classList.remove('was-validated', 'error', 'valid');
-                    });
-                    
-                    successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    
-                    setTimeout(() => {
-                        submitBtn.disabled = false;
-                        submitBtn.innerHTML = '<span>Book My Appointment ✨</span>';
-                    }, 2000);
-                } else {
-                    throw new Error('Booking failed');
-                }
-            } catch (error) {
-                errorText.textContent = 'Unable to complete booking. Please try again or call us directly.';
-                errorMessage.style.display = 'block';
-                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<span>Book My Appointment ✨</span>';
-                
-                console.error('Booking error:', error);
-            }
-        });
-    </script>
+      if(time){
+        const h = parseInt(time.split(':')[0],10);
+        if(isNaN(h) || h < OPEN_HOUR || h >= CLOSE_HOUR){ ok=false; invalidate('appointmentTime','Pick a time within business hours.'); }
+      }
+
+      if(date){
+        const picked = new Date(date+"T00:00:00");
+        const today = new Date(); today.setHours(0,0,0,0);
+        if(picked < today){ ok=false; invalidate('appointmentDate','Date cannot be in the past.'); }
+      }
+
+      // honeypot
+      if(document.getElementById('company').value){ ok=false; }
+
+      return ok;
+    }
+
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      okToast.style.display='none';
+      if(!validate()){ errToast.style.display='block'; return; }
+
+      const payload = Object.fromEntries(new FormData(form));
+      const body = {
+        clientName: payload.clientName,
+        clientEmail: payload.clientEmail,
+        clientPhone: payload.clientPhone,
+        serviceType: payload.serviceType,
+        appointmentDate: payload.appointmentDate,
+        appointmentTime: payload.appointmentTime,
+        notes: payload.notes || 'No special requests'
+      };
+
+      const btn = e.submitter || document.querySelector('.btn');
+      btn.setAttribute('disabled','true');
+      btn.querySelector('#btnText').textContent = 'Sending…';
+
+      try{
+        const res = await fetch(WEBHOOK_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)});
+        if(!res.ok) throw new Error('HTTP '+res.status);
+        form.reset();
+        okToast.style.display='block';
+        successModal.showModal();
+      }catch(err){
+        console.error(err);
+        errToast.style.display='block';
+      }finally{
+        btn.removeAttribute('disabled');
+        btn.querySelector('#btnText').textContent = 'Book my appointment ✨';
+        window.scrollTo({top:0, behavior:'smooth'});
+      }
+    });
+  </script>
 </body>
 </html>
