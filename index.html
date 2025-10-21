@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diamond Nails - Book Your Appointment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,26 +15,330 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 600;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #8b5cf6 100%);
             min-height: 100vh;
             padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.35) 2px, transparent 2px);
+            background-size: 50px 50px;
+            animation: moveBackground 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
         }
 
         .container {
-            background: white;
-            max-width: 600px;
-            width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            max-width: 550px;
+            margin: 0 auto;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 100px rgba(59, 130, 246, 0.2);
             overflow: hidden;
-            animation: slideIn 0.5s ease-out;
+            animation: fadeInUp 0.6s ease-out;
+            position: relative;
         }
 
-        @keyframes slideIn {
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 20%, transparent 40%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .logo {
+            font-size: 56px;
+            margin-bottom: 12px;
+            animation: floatLogo 3s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        }
+
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+
+        .form-content {
+            padding: 35px 30px 40px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            animation: fadeIn 0.5s ease-out backwards;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.15s; }
+        .form-group:nth-child(3) { animation-delay: 0.2s; }
+        .form-group:nth-child(4) { animation-delay: 0.25s; }
+        .form-group:nth-child(5) { animation-delay: 0.3s; }
+        .form-group:nth-child(6) { animation-delay: 0.35s; }
+        .form-group:nth-child(7) { animation-delay: 0.4s; }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 10px;
+            font-size: 14px;
+            letter-spacing: 0.3px;
+        }
+
+        .required {
+            color: #ef4444;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: white;
+            color: #1e293b;
+        }
+
+        input[type="date"],
+        input[type="time"] {
+            position: relative;
+            padding: 14px 16px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator,
+        input[type="time"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            opacity: 0.6;
+            padding: 4px;
+            transition: opacity 0.2s;
+        }
+
+        input[type="date"]:hover::-webkit-calendar-picker-indicator,
+        input[type="time"]:hover::-webkit-calendar-picker-indicator {
+            opacity: 1;
+        }
+
+        input:hover, select:hover, textarea:hover {
+            border-color: #cbd5e1;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        input.error, select.error {
+            border-color: #ef4444;
+            animation: shake 0.4s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        input.valid, select.valid {
+            border-color: #10b981;
+        }
+
+        select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233b82f6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 20px;
+            padding-right: 40px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+
+        .helper-text {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 500;
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 12px;
+            margin-top: 6px;
+            display: none;
+            font-weight: 700;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .submit-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.5);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .powered-by {
+            text-align: center;
+            padding: 24px;
+            background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+            color: #64748b;
+            font-size: 13px;
+            border-top: 1px solid #e2e8f0;
+            font-weight: 600;
+        }
+
+        .powered-by strong {
+            color: #3b82f6;
+            font-weight: 800;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            color: #065f46;
+            padding: 16px 18px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            border: 2px solid #6ee7b7;
+            display: none;
+            font-size: 14px;
+            font-weight: 700;
+            animation: slideDown 0.4s ease-out;
+        }
+
+        @keyframes slideDown {
             from {
                 opacity: 0;
                 transform: translateY(-20px);
@@ -42,191 +349,86 @@
             }
         }
 
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px 30px;
-            text-align: center;
-        }
-
-        .logo {
-            font-size: 60px;
-            margin-bottom: 10px;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .header h1 {
-            font-size: 32px;
-            margin-bottom: 5px;
-        }
-
-        .header p {
-            opacity: 0.9;
-            font-size: 16px;
-        }
-
-        .form-content {
-            padding: 40px 30px;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        label {
-            display: block;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        label .required {
-            color: #e74c3c;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 15px;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        input:invalid:not(:placeholder-shown), 
-        select:invalid:not(:placeholder-shown),
-        textarea:invalid:not(:placeholder-shown) {
-            border-color: #e74c3c;
-        }
-
-        input:valid:not(:placeholder-shown),
-        select:valid:not(:placeholder-shown) {
-            border-color: #27ae60;
-        }
-
-        select {
-            cursor: pointer;
-            background-color: white;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .error-message {
-            color: #e74c3c;
-            font-size: 12px;
-            margin-top: 5px;
-            display: none;
-        }
-
-        .helper-text {
-            color: #888;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-
-        .submit-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        .submit-btn:active {
-            transform: translateY(0);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .powered-by {
-            text-align: center;
-            padding: 20px;
-            background: #f8f9ff;
-            color: #888;
-            font-size: 13px;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .powered-by strong {
-            color: #667eea;
-        }
-
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #c3e6cb;
-            display: none;
-        }
-
         .error-message-box {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #f5c6cb;
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #991b1b;
+            padding: 16px 18px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            border: 2px solid #fca5a5;
             display: none;
+            font-size: 14px;
+            font-weight: 700;
+            animation: slideDown 0.4s ease-out;
         }
 
         .loading {
             display: inline-block;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border: 3px solid rgba(255,255,255,.3);
             border-radius: 50%;
             border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
+            animation: spin 0.6s linear infinite;
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
 
-        @media (max-width: 640px) {
+        .input-icon {
+            display: inline-block;
+            margin-right: 6px;
+            font-size: 16px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+
+            .container {
+                border-radius: 20px;
+            }
+
             .header {
-                padding: 30px 20px;
+                padding: 35px 25px;
             }
 
             .header h1 {
-                font-size: 26px;
+                font-size: 28px;
+            }
+
+            .logo {
+                font-size: 48px;
             }
 
             .form-content {
-                padding: 30px 20px;
+                padding: 28px 20px 32px;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            input, select, textarea {
+                font-size: 16px;
+                padding: 13px 14px;
+            }
+
+            .submit-btn {
+                padding: 15px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .form-content {
+                padding: 24px 18px 28px;
             }
         }
     </style>
@@ -244,12 +446,12 @@
                 ✅ <strong>Booking Confirmed!</strong> Check your email for details.
             </div>
             <div class="error-message-box" id="errorMessage">
-                ❌ <strong>Oops!</strong> <span id="errorText">Something went wrong. Please try again.</span>
+                ❌ <strong>Error:</strong> <span id="errorText">Something went wrong. Please try again.</span>
             </div>
 
             <form id="bookingForm" novalidate>
                 <div class="form-group">
-                    <label for="clientName">👤 Your Full Name <span class="required">*</span></label>
+                    <label for="clientName"><span class="input-icon">👤</span>Your Full Name <span class="required">*</span></label>
                     <input 
                         type="text" 
                         id="clientName" 
@@ -257,64 +459,63 @@
                         required 
                         minlength="2"
                         maxlength="100"
-                        placeholder="Enter your full name"
+                        placeholder="e.g. Sarah Johnson"
                         pattern="[A-Za-z\s]{2,100}">
-                    <div class="error-message" id="nameError">Please enter your full name (letters only, 2-100 characters)</div>
+                    <div class="error-message" id="nameError">Please enter your full name (letters only)</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="clientEmail">📧 Email Address <span class="required">*</span></label>
+                    <label for="clientEmail"><span class="input-icon">📧</span>Email Address <span class="required">*</span></label>
                     <input 
                         type="email" 
                         id="clientEmail" 
                         name="clientEmail" 
                         required 
-                        placeholder="your.email@example.com"
-                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                        placeholder="your.email@example.com">
                     <div class="error-message" id="emailError">Please enter a valid email address</div>
-                    <div class="helper-text">We'll send your confirmation here</div>
+                    <div class="helper-text">📨 We'll send your confirmation here</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="clientPhone">📱 Phone Number <span class="required">*</span></label>
+                    <label for="clientPhone"><span class="input-icon">📱</span>Phone Number <span class="required">*</span></label>
                     <input 
                         type="tel" 
                         id="clientPhone" 
                         name="clientPhone" 
                         required 
-                        placeholder="(555) 123-4567"
-                        pattern="[\(\)\d\s\-\+]{10,20}">
-                    <div class="error-message" id="phoneError">Please enter a valid phone number (10+ digits)</div>
-                    <div class="helper-text">In case we need to contact you</div>
+                        placeholder="07XXX XXXXXX"
+                        pattern="^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$">
+                    <div class="error-message" id="phoneError">Please enter a valid UK mobile number</div>
+                    <div class="helper-text">🇬🇧 UK mobile format: 07XXX XXXXXX</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="serviceType">💅 Service Type <span class="required">*</span></label>
+                    <label for="serviceType"><span class="input-icon">💅</span>Service Type <span class="required">*</span></label>
                     <select id="serviceType" name="serviceType" required>
                         <option value="">Select a service...</option>
-                        <option value="Classic Manicure - $35">Classic Manicure - $35</option>
-                        <option value="Gel Manicure - $50">Gel Manicure - $50</option>
-                        <option value="Acrylic Full Set - $65">Acrylic Full Set - $65</option>
-                        <option value="Pedicure - $45">Pedicure - $45</option>
-                        <option value="Spa Pedicure - $60">Spa Pedicure - $60</option>
-                        <option value="Nail Art - $15+">Nail Art - $15+</option>
-                        <option value="Manicure & Pedicure Combo - $75">Manicure & Pedicure Combo - $75</option>
+                        <option value="Classic Manicure - £30">Classic Manicure - £30</option>
+                        <option value="Gel Manicure - £40">Gel Manicure - £40</option>
+                        <option value="Acrylic Full Set - £50">Acrylic Full Set - £50</option>
+                        <option value="Pedicure - £35">Pedicure - £35</option>
+                        <option value="Spa Pedicure - £45">Spa Pedicure - £45</option>
+                        <option value="Nail Art - £15+">Nail Art - £15+</option>
+                        <option value="Manicure & Pedicure Combo - £60">Manicure & Pedicure Combo - £60</option>
                     </select>
                     <div class="error-message" id="serviceError">Please select a service</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="appointmentDate">📅 Preferred Date <span class="required">*</span></label>
+                    <label for="appointmentDate"><span class="input-icon">📅</span>Preferred Date <span class="required">*</span></label>
                     <input 
                         type="date" 
                         id="appointmentDate" 
                         name="appointmentDate" 
                         required>
-                    <div class="error-message" id="dateError">Please select a valid date (today or later)</div>
+                    <div class="error-message" id="dateError">Please select a valid date</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="appointmentTime">🕐 Preferred Time <span class="required">*</span></label>
+                    <label for="appointmentTime"><span class="input-icon">🕐</span>Preferred Time <span class="required">*</span></label>
                     <input 
                         type="time" 
                         id="appointmentTime" 
@@ -323,21 +524,21 @@
                         min="09:00"
                         max="18:00">
                     <div class="error-message" id="timeError">Please select a time between 9:00 AM and 6:00 PM</div>
-                    <div class="helper-text">Business hours: 9:00 AM - 6:00 PM</div>
+                    <div class="helper-text">⏰ Business hours: 9:00 AM - 6:00 PM</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="notes">📝 Special Requests (Optional)</label>
+                    <label for="notes"><span class="input-icon">📝</span>Special Requests (Optional)</label>
                     <textarea 
                         id="notes" 
                         name="notes" 
                         maxlength="500"
-                        placeholder="Any color preferences, nail length, or special requests..."></textarea>
-                    <div class="helper-text">Maximum 500 characters</div>
+                        placeholder="Any colour preferences, nail length, or special requests..."></textarea>
+                    <div class="helper-text">💬 Maximum 500 characters</div>
                 </div>
 
                 <button type="submit" class="submit-btn" id="submitBtn">
-                    Book My Appointment ✨
+                    <span>Book My Appointment ✨</span>
                 </button>
             </form>
         </div>
@@ -370,13 +571,17 @@
         function validateField(field) {
             const errorElement = document.getElementById(field.id + 'Error');
             
+            field.classList.remove('error', 'valid');
+            
             if (!field.checkValidity()) {
+                field.classList.add('error');
                 if (errorElement) {
                     errorElement.style.display = 'block';
                 }
                 field.classList.add('was-validated');
                 return false;
             } else {
+                field.classList.add('valid');
                 if (errorElement) {
                     errorElement.style.display = 'none';
                 }
@@ -386,9 +591,18 @@
 
         document.getElementById('clientPhone').addEventListener('input', function(e) {
             let value = e.target.value.replace(/\D/g, '');
-            if (value.length >= 10) {
-                value = value.substring(0, 10);
-                e.target.value = `(${value.substring(0,3)}) ${value.substring(3,6)}-${value.substring(6)}`;
+            
+            if (value.startsWith('44')) {
+                value = value.substring(2);
+            }
+            
+            if (value.startsWith('0')) {
+                if (value.length > 11) {
+                    value = value.substring(0, 11);
+                }
+                if (value.length >= 5) {
+                    e.target.value = value.substring(0, 5) + ' ' + value.substring(5, 8) + (value.length > 8 ? ' ' + value.substring(8) : '');
+                }
             }
         });
 
@@ -440,7 +654,7 @@
             errorMessage.style.display = 'none';
             
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="loading"></span> Booking...';
+            submitBtn.innerHTML = '<span class="loading"></span> <span>Booking...</span>';
             
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData);
@@ -461,14 +675,14 @@
                     form.reset();
                     
                     inputs.forEach(input => {
-                        input.classList.remove('was-validated');
+                        input.classList.remove('was-validated', 'error', 'valid');
                     });
                     
                     successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                     
                     setTimeout(() => {
                         submitBtn.disabled = false;
-                        submitBtn.innerHTML = 'Book My Appointment ✨';
+                        submitBtn.innerHTML = '<span>Book My Appointment ✨</span>';
                     }, 2000);
                 } else {
                     throw new Error('Booking failed');
@@ -479,7 +693,7 @@
                 errorMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = 'Book My Appointment ✨';
+                submitBtn.innerHTML = '<span>Book My Appointment ✨</span>';
                 
                 console.error('Booking error:', error);
             }
