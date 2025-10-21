@@ -114,6 +114,30 @@
     .modal h3{margin:0 0 8px; font-family:"Playfair Display", serif; font-size:26px}
     .modal p{margin:4px 0 0; color:var(--muted)}
     .modal .okbtn{margin-top:16px; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.06); color:#fff; font-weight:800; cursor:pointer}
+    /* ===== Fix 1: dropdown contrast (native select + options) ===== */
+    select{color:var(--ink); background-color:#141a33;}
+    option{color:#e6e8ef; background-color:#141a33;}
+    select:disabled{opacity:.6}
+
+    /* ===== Fix 2: remove background seam on scroll ===== */
+    body::before{
+      content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+      background:
+        radial-gradient(1200px 700px at -15% -10%, rgba(255,77,109,.22), transparent 60%),
+        radial-gradient(900px 600px at 115% -10%, rgba(135,240,255,.22), transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg-soft));
+      will-change:transform; /* GPU hint prevents banding */
+    }
+
+    /* ===== Fix 3: tighter mobile layout & safe areas ===== */
+    @media (max-width:480px){
+      .wrap{padding:16px}
+      .hero{padding:26px 18px 12px}
+      .brand h1{font-size:22px}
+      .two{grid-template-columns:1fr; gap:10px}
+      input,select,textarea{font-size:16px; padding:13px 12px; border-radius:14px}
+      .btn{padding:14px}
+    }
   </style>
 </head>
 <body>
